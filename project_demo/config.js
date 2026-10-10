@@ -1,6 +1,6 @@
 /* Only public configuration belongs here. Never add API keys or your email. */
 window.FER_CONFIG = {
-  formspreeEndpoint: '', // https://formspree.io/f/YOUR_FORM_ID
+  formspreeEndpoint: 'https://formspree.io/f/xljgbyqk',
   maxUploadMB: 20,
   defaultModel: 'cnn',
   models: [
