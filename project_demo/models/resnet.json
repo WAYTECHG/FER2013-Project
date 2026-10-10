@@ -1,0 +1,30 @@
+{
+  "format": "onnx",
+  "modelFile": "resnet.onnx",
+  "inputLayout": "NHWC",
+  "inputShape": [
+    1,
+    48,
+    48,
+    3
+  ],
+  "normalization": "rgb/255",
+  "labels": [
+    "Angry",
+    "Disgust",
+    "Fear",
+    "Happy",
+    "Neutral",
+    "Sad",
+    "Surprise"
+  ],
+  "inputName": "face_rgb",
+  "outputName": "Identity:0",
+  "sha256": "e82c0a93e9dbc97db2dee1b6905bae7666069057d0d04af1d9906afc7d2ab67f",
+  "checkpoint": "resnet50_best.keras",
+  "verification": {
+    "samples": 9,
+    "maxAbsoluteError": 2.384185791015625e-07,
+    "note": "Conversion parity check; not a new FER2013 accuracy measurement."
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cnn",
+    "name": "Custom CNN",
+    "kind": "Custom convolutional network",
+    "reportAccuracy": 0.66
+  },
+  {
+    "id": "resnet",
+    "name": "ResNet50",
+    "kind": "Residual transfer learning",
+    "reportAccuracy": 0.6123
+  },
+  {
+    "id": "mobilenet",
+    "name": "MobileNetV2",
+    "kind": "Lightweight transfer learning",
+    "reportAccuracy": 0.6034
+  },
+  {
+    "id": "vgg16",
+    "name": "VGG16",
+    "kind": "Convolutional transfer learning",
+    "reportAccuracy": 0.6013
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "format": "onnx",
+  "modelFile": "mobilenet.onnx",
+  "inputLayout": "NHWC",
+  "inputShape": [
+    1,
+    48,
+    48,
+    3
+  ],
+  "normalization": "rgb/255",
+  "labels": [
+    "Angry",
+    "Disgust",
+    "Fear",
+    "Happy",
+    "Neutral",
+    "Sad",
+    "Surprise"
+  ],
+  "inputName": "face_rgb",
+  "outputName": "Identity:0",
+  "sha256": "5281f163457401c2f87b29310e4f117d5fe3f097acb89e93575c66255acf6015",
+  "checkpoint": "mobilenetv2_best.keras",
+  "verification": {
+    "samples": 9,
+    "maxAbsoluteError": 3.159046173095703e-06,
+    "note": "Conversion parity check; not a new FER2013 accuracy measurement."
+  }
+}

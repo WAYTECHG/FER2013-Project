@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <meta name="description" content="Explore seven facial expressions with live webcam detection and compare CNN, ResNet50, MobileNetV2 and VGG16 on FER2013.">
+  <title>FER Lab · Facial Expression Recognition</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js" defer></script><script src="./app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip" href="#demo">Skip to live demo</a>
+  <header class="header">
+    <a href="#home" class="brand" aria-label="FER Lab home"><span class="brand-icon">F<span>•</span></span><span>FER<span class="muted"> / LAB</span></span></a>
+    <button id="menu-toggle" class="icon-button menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="navigation">☰</button>
+    <nav id="navigation" aria-label="Main navigation"><a class="active" href="#home">Home</a><a href="#about">About</a><a href="#demo">Live demo</a><a href="#benchmark">Benchmarks</a><a href="#contact">Contact us</a></nav>
+    <a href="https://github.com/WAYTECHG/FER2013-Project" target="_blank" rel="noopener noreferrer" class="repo-link">View project <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-copy"><p class="eyebrow"><span></span> COMPUTER VISION / FER2013</p><h1>A face.<br><span>Seven expressions.</span></h1><p class="hero-description">Explore what a neural network sees in a smile, a frown, or a moment of surprise. Facial expression recognition, right in your browser.</p><div class="hero-actions"><a class="button primary" href="#demo">Open live demo</a><a class="button secondary" href="#benchmark">Explore the results</a></div><div class="hero-meta"><span><b>07</b> expression classes</span><span><b>04</b> neural networks</span><span><b>48 × 48</b> RGB input</span></div></div>
+      <div class="atlas" aria-label="Seven expressions recognized by the project">
+        <div class="atlas-top"><span>THE EXPRESSION ATLAS</span><span class="mono">01—07</span></div>
+        <div class="atlas-grid">
+          <div class="expression happy"><span class="expression-symbol" aria-hidden="true">☺</span><span>Happy</span><small>01 / JOY</small></div>
+          <div class="expression neutral"><span class="expression-symbol" aria-hidden="true">😐</span><span>Neutral</span><small>02 / CALM</small></div>
+          <div class="expression surprise"><span class="expression-symbol" aria-hidden="true">😮</span><span>Surprise</span><small>03 / WONDER</small></div>
+          <div class="expression sad"><span class="expression-symbol" aria-hidden="true">☹</span><span>Sad</span><small>04 / SORROW</small></div>
+          <div class="expression angry"><span class="expression-symbol" aria-hidden="true">😠</span><span>Angry</span><small>05 / TENSION</small></div>
+          <div class="expression fear"><span class="expression-symbol" aria-hidden="true">😨</span><span>Fear</span><small>06 / ALERT</small></div>
+          <div class="expression disgust"><span class="expression-symbol" aria-hidden="true">😒</span><span>Disgust</span><small>07 / AVERSION</small></div>
+          <div class="atlas-note"><span class="mono">FER / 2013</span><p>Small details.<br>Different predictions.</p><span class="tiny">FACIAL EXPRESSION STUDY</span></div>
+        </div><div class="atlas-bottom"><span>Custom CNN + transfer learning</span><span class="atlas-cross" aria-hidden="true">+</span></div>
+      </div>
+    </section>
+    <section class="section about" id="about">
+      <div><p class="eyebrow">01 / BEHIND THE PROJECT</p><h2>Learning the language<br>of facial expressions.</h2></div>
+      <div class="about-content"><p>This XMUM deep learning project compares a custom convolutional neural network with VGG16, ResNet50, and MobileNetV2 on FER2013. Each model predicts seven expression classes from a 48 × 48 RGB face crop.</p><p>Explore the saved evaluation plots, then try an image or your webcam. Faces are located first; the trained classifier then scores each expression.</p><div class="pipeline"><span>Locate face</span><span aria-hidden="true">/</span><span>Resize & normalize</span><span aria-hidden="true">/</span><span>Predict 7 classes</span></div><p class="scope-note">Predictions describe visual expressions and can be wrong. They do not establish how a person feels.</p></div>
+    </section>
+    <section class="section" id="demo">
+      <div class="section-heading"><div><p class="eyebrow">02 / TRY IT YOURSELF</p><h2>Your expression. In focus.</h2><p>Upload a photo or turn on your camera. Images and video stay on your device.</p></div><span class="tag">BROWSER INFERENCE</span></div>
+      <div class="studio">
+        <div class="studio-main">
+          <div class="studio-toolbar"><div class="tabs" role="tablist" aria-label="Input source"><button id="image-tab" class="tab selected" role="tab" aria-selected="true" aria-controls="image-controls">Image upload</button><button id="camera-tab" class="tab" role="tab" aria-selected="false" aria-controls="camera-controls" tabindex="-1">Live camera</button></div><span id="engine-status" class="engine-status">Engine idle</span></div>
+          <div class="viewport" id="viewport">
+            <video id="camera" muted playsinline hidden></video><canvas id="image-canvas" hidden></canvas><canvas id="overlay" hidden></canvas>
+            <div class="viewport-empty" id="viewport-empty"><div class="focus-icon" aria-hidden="true"><span>+</span></div><h3 id="empty-title">Put a face in the frame.</h3><p id="empty-description">Choose a photo to explore its expression.</p><span class="tiny">JPG · JPEG · WEBP · PNG</span></div>
+            <div id="camera-badge" class="camera-badge" hidden>CAMERA ON</div>
+          </div>
+          <div class="source-controls" id="image-controls" role="tabpanel" aria-labelledby="image-tab"><label class="button secondary upload-button" for="image-file">Choose image<input id="image-file" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></label><span id="file-name">or drop your image here</span><button class="button primary" id="analyze" disabled>Analyze image</button></div>
+          <div class="source-controls" id="camera-controls" role="tabpanel" aria-labelledby="camera-tab" hidden><button class="button primary" id="start-camera">Start camera</button><button class="button secondary" id="stop-camera" disabled>Stop camera</button><label class="mirror-control"><input type="checkbox" id="mirror" checked> Mirror preview</label></div>
+          <div class="studio-footer"><span id="frame-stats">No input yet</span><span id="face-count">0 faces</span></div>
+        </div>
+        <aside class="results-panel" aria-label="Expression results">
+          <div class="panel-heading"><span class="eyebrow">EXPRESSION PROFILE</span><span class="mono">07</span></div>
+          <label class="field-label" for="model-select">Emotion model</label><select id="model-select"></select>
+          <div class="dominant"><span class="tiny">TOP PREDICTION</span><h3 id="prediction-label">Awaiting input</h3><p id="prediction-confidence">Seven scores, one expression profile.</p></div>
+          <div class="scores" id="scores"></div>
+          <div id="face-picker" hidden><label class="field-label" for="face-select">Inspect a face</label><select id="face-select"></select></div>
+          <label class="field-label" for="inference-rate">Live analysis frequency <span id="rate-label">8 / sec target</span></label><input id="inference-rate" type="range" min="2" max="12" value="8">
+          <p class="panel-note">Video playback runs independently from analysis. Scores are smoothed in live mode to reduce flicker.</p>
+        </aside>
+      </div>
+      <p id="demo-message" class="message" role="status" aria-live="polite">Ready for an image or webcam. The engine loads when you begin.</p>
+      <div class="demo-help"><span>Use a clear, front-facing photo with good lighting.</span><a id="open-direct" href="" target="_blank" rel="noopener noreferrer" hidden>Open full page for camera access ↗</a></div>
+    </section>
+    <section class="section" id="benchmark">
+      <div class="section-heading"><div><p class="eyebrow">03 / MODEL BENCHMARKS</p><h2>Four approaches.<br>One shared dataset.</h2><p>Recorded project results on FER2013, alongside the original evaluation figures.</p></div></div>
+      <div class="benchmark-cards" id="benchmark-cards"></div>
+      <div class="benchmark-detail"><div class="accuracy-chart"><div class="chart-head"><h3>Test accuracy</h3><span class="tiny">HIGHER IS BETTER</span></div><div id="accuracy-bars"></div><div class="chart-axis"><span>0%</span><span>50%</span><span>100%</span></div><p id="benchmark-note" class="panel-note"></p></div><div class="evaluation-panel"><div class="chart-head"><h3>Inspect the evidence</h3></div><div class="plot-selectors"><label class="field-label">Model<select id="plot-model"><option value="CNN">Custom CNN</option><option value="resnet">ResNet50</option><option value="mobilenet">MobileNetV2</option><option value="vgg16">VGG16</option></select></label><label class="field-label">Evaluation<select id="plot-type"><option value="confusion">Confusion matrix</option><option value="report">Class report</option><option value="roc">ROC curves</option><option value="gradcam">Grad-CAM</option></select></label></div><button class="plot-preview" id="open-plot" aria-label="Enlarge evaluation figure"><img id="evaluation-image" src="./assets/results/confusion_CNN.png" alt="Custom CNN confusion matrix"><span>Enlarge figure <span aria-hidden="true">↗</span></span></button></div></div>
+      <div class="benchmark-caption"><span>Input: 48 × 48 RGB · 7 classes · RGB / 255 normalization</span><a href="https://github.com/WAYTECHG/FER2013-Project/tree/main/result_images" target="_blank" rel="noopener noreferrer">Original results on GitHub ↗</a></div>
+    </section>
+    <section class="section contact" id="contact"><div class="contact-copy"><p class="eyebrow">04 / LET’S CONNECT</p><h2>Curious about<br><span>the project?</span></h2><p>Have a question, an idea, or an opportunity? Leave a message.</p><a class="text-link" href="https://github.com/WAYTECHG/FER2013-Project" target="_blank" rel="noopener noreferrer">Explore the source on GitHub ↗</a><span class="contact-mark" aria-hidden="true">FER / LAB</span></div><form id="contact-form"><div class="form-row"><label>Your name<input type="text" name="name" required autocomplete="name" maxlength="100" placeholder="How should we call you?"></label><label>Your email<input type="email" name="email" required autocomplete="email" maxlength="254" placeholder="So we can reply"></label></div><label>Subject<input type="text" name="subject" required maxlength="150" placeholder="What’s on your mind?"></label><label>Message<textarea name="message" required rows="5" maxlength="5000" placeholder="Tell us a little more…"></textarea></label><div class="honeypot" aria-hidden="true"><label>Leave empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><div class="form-bottom"><span>Your message is delivered through Formspree.</span><button type="submit" class="button primary" id="send-message">Send message</button></div><p id="contact-status" role="status" aria-live="polite"></p></form></section>
+  </main>
+  <footer><a class="brand" href="#home"><span class="brand-icon">F<span>•</span></span><span>FER<span class="muted"> / LAB</span></span></a><span>XMUM · Deep Learning Project · 2025</span><a href="#home">Back to top ↑</a></footer>
+  <dialog id="plot-dialog"><div class="dialog-top"><span id="plot-dialog-title">Evaluation figure</span><button id="close-plot" class="icon-button" aria-label="Close figure">×</button></div><img id="large-plot" alt=""></dialog>
+</body>
+</html>

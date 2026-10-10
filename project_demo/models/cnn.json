@@ -1,0 +1,30 @@
+{
+  "format": "onnx",
+  "modelFile": "cnn.onnx",
+  "inputLayout": "NHWC",
+  "inputShape": [
+    1,
+    48,
+    48,
+    3
+  ],
+  "normalization": "rgb/255",
+  "labels": [
+    "Angry",
+    "Disgust",
+    "Fear",
+    "Happy",
+    "Neutral",
+    "Sad",
+    "Surprise"
+  ],
+  "inputName": "face_rgb",
+  "outputName": "Identity:0",
+  "sha256": "309b085b9e53b47dbaf980b5cb68ae02d768402e3883ae413115343fb82260dc",
+  "checkpoint": "CNN_best.keras",
+  "verification": {
+    "samples": 9,
+    "maxAbsoluteError": 5.066394805908203e-07,
+    "note": "Conversion parity check; not a new FER2013 accuracy measurement."
+  }
+}
