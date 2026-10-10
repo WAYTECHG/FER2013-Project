@@ -38,13 +38,13 @@ function updateScores(probabilities, emptyLabel = 'Awaiting input') {
 
 function request(type, data = {}, transfer = []) {
   if (!worker) {
-    worker = new Worker(new URL('./inference-worker.js', import.meta.url));
+    worker = new Worker(new URL('./inference-worker.js?v=20261010-wasm-face', import.meta.url));
     worker.onmessage = ({ data: response }) => {
       const pending = requests.get(response.id); if (!pending) return;
       clearTimeout(pending.timeout); requests.delete(response.id);
       response.ok ? pending.resolve(response.result) : pending.reject(new Error(response.error));
     };
-    worker.onerror = () => failWorker(new Error('The browser inference engine could not start. Check that JavaScript and WASM assets are available, then retry.'));
+    worker.onerror = event => failWorker(new Error('The inference worker could not start. Restore inference-worker.js, face-detector.js and vendor/ort/ from the complete package. ' + (event.message || '')));
   }
   const id = ++nextID;
   return new Promise((resolve, reject) => {
